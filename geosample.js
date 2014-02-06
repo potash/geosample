@@ -169,7 +169,6 @@ var defaultZoom = 9;
 function sampleLocation(address, n, options) {
 	$.getJSON('http://nominatim.openstreetmap.org/search?format=json&polygon=1&q=' + address, 
 		function(data) {
-			console.log(data);
 			var poly = null;
 			for (var i = 0; i < data.length; i++) {
 				if (data[i].polygonpoints != null) {
@@ -184,7 +183,9 @@ function sampleLocation(address, n, options) {
 				var triangles = triangulate(poly);
 				points = sampleTriangulation(triangles, n);
 				points.forEach( function(p) {
-					L.marker([p[1],p[0]]).addTo(map);
+					var marker = L.marker([p[1],p[0]]);
+					marker.bindPopup(p[1] + ', ' + p[0]);
+					marker.addTo(map);
 				});
 			} else {
 				console.warn("No polygon matches for query: " + address);
