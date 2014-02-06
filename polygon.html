@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+
+<!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/jquery.svg.css"> -->
+<script type="text/javascript" src="js/jquery.svg.min.js"></script>
+
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
+<script type="text/javascript" src="poly2tri.js"></script>
+<script type="text/javascript" src="geosample.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#map').svg({onLoad: draw});
+	});
+</script>
+<style>
+	html, body {
+		height: 100%;
+		width: 100%;
+	}
+	.fill {
+		min-width: 98%;
+		min-height: 98%;
+	}
+</style>
+</head>
+<body>
+	<div id="map" class="fill"></div>
+</div>
+</body>
+</html>
