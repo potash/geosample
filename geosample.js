@@ -167,10 +167,17 @@ var defaultLatLng = new L.LatLng(41.878247, -87.629767); // Chicago
 var defaultZoom = 9;
 
 function sampleLocation(address, n, options) {
-	$.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=1&polygon=1&q=' + address, 
-		function(data) {  
-			if (data.length > 0) {
-				var poly = data[0].polygonpoints;
+	$.getJSON('http://nominatim.openstreetmap.org/search?format=json&polygon=1&q=' + address, 
+		function(data) {
+			console.log(data);
+			var poly = null;
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].polygonpoints != null) {
+					poly = data[i].polygonpoints;
+					break;
+				}
+			}
+			if (poly != null) {
 				drawPolygon(toLeafletPoints(poly), options);
 
 				poly.pop(); // first and last points are the same so remove one
@@ -179,6 +186,8 @@ function sampleLocation(address, n, options) {
 				points.forEach( function(p) {
 					L.marker([p[1],p[0]]).addTo(map);
 				});
+			} else {
+				console.warn("No polygon matches for query: " + address);
 			}
 		}
 	);
